@@ -138,6 +138,7 @@ if __name__ == "__main__":
         action="store_true",
         help="if is only for running",
     )
+    parser.add_argument("strava_cookie", nargs="?", help="cookie of strava")
     options = parser.parse_args()
     strava_client = make_strava_client(
         options.strava_client_id,
@@ -149,8 +150,7 @@ if __name__ == "__main__":
     print("password",options.strava_password)
     strava_web_client = WebClient(
         access_token=strava_client.access_token,
-        email=options.strava_email,
-        password=options.strava_password,
+        jwt=options.strava_password,
     )
     garmin_auth_domain = "CN" if options.is_cn else ""
 
