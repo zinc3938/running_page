@@ -95,6 +95,12 @@ async def upload_to_activities(
     for i in sorted(strava_activities, key=lambda i: int(i.id)):
         try:
             data = strava_web_client.get_activity_data(i.id, fmt=format)
+            print("get_activity_data:",data)
+            
+            with open(data.filename, "wb") as f:
+                for chunk in data.content:
+                    f.write(chunk)
+                    f.close()
             files_list.append(data)
         except Exception as ex:
             print("get strava data error: ", ex)
@@ -126,12 +132,21 @@ if __name__ == "__main__":
         default=False,
         help="whether to use a faked Garmin device",
     )
+    parser.add_argument(
+        "--only-run",
+        dest="only_run",
+        action="store_true",
+        help="if is only for running",
+    )
     options = parser.parse_args()
     strava_client = make_strava_client(
         options.strava_client_id,
         options.strava_client_secret,
         options.strava_refresh_token,
     )
+    print("access_token",strava_client.access_token)
+    print("email",options.strava_email)
+    print("password",options.strava_password)
     strava_web_client = WebClient(
         access_token=strava_client.access_token,
         email=options.strava_email,
@@ -160,4 +175,5 @@ if __name__ == "__main__":
         options.strava_client_id,
         options.strava_client_secret,
         options.strava_refresh_token,
+        options.only_run,
     )

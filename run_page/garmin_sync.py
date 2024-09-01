@@ -125,10 +125,7 @@ class Garmin:
             use_fake_garmin_device,
         )
         for data in datas:
-            print(data.filename)
-            with open(data.filename, "wb") as f:
-                for chunk in data.content:
-                    f.write(chunk)
+
             f = open(data.filename, "rb")
             # wrap fake garmin device to origin fit file, current not support gpx file
             if use_fake_garmin_device:
