@@ -96,10 +96,10 @@ if __name__ == "__main__":
     loop.run_until_complete(future)
 
     # Save synced activity list for speeding up
-    synced_activity.extend(new_ids)
-    save_synced_activity_list(synced_activity)
+    #synced_activity.extend(new_ids)
+    #save_synced_activity_list(synced_activity)
 
     # Step 2:
     # Generate track from fit/gpx file
-    make_activities_file(SQL_FILE, GPX_FOLDER, JSON_FILE, file_suffix="gpx")
-    make_activities_file(SQL_FILE, FIT_FOLDER, JSON_FILE, file_suffix="fit")
+    #make_activities_file(SQL_FILE, GPX_FOLDER, JSON_FILE, file_suffix="gpx")
+    #make_activities_file(SQL_FILE, FIT_FOLDER, JSON_FILE, file_suffix="fit")
