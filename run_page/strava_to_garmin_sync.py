@@ -9,7 +9,9 @@ from garmin_sync import Garmin
 from strava_sync import run_strava_sync
 from stravaweblib import DataFormat, WebClient
 from utils import make_strava_client
+from collections import namedtuple
 
+ExportFile = namedtuple("ExportFile", ("filename", "content"))
 
 def generate_strava_run_points(start_time, strava_streams):
     """
@@ -96,12 +98,14 @@ async def upload_to_activities(
         try:
             data = strava_web_client.get_activity_data(i.id, fmt=format)
             print("get_activity_data:",data)
-            data.filename = f"{i.id}.fit"
-            with open(data.filename, "wb") as f:
+            newfilename = f"{i.id}.fit"
+            
+            newdata = ExportFile(newfilename, data.content)
+            with open(newdata.filename, "wb") as f:
                 for chunk in data.content:
                     f.write(chunk)
                     f.close()
-            files_list.append(data)
+            files_list.append(newdata)
         except Exception as ex:
             print("get strava data error: ", ex)
     await garmin_client.upload_activities_original_from_strava(
