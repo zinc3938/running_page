@@ -96,7 +96,7 @@ if __name__ == "__main__":
     loop.run_until_complete(future)
 
     # Save synced activity list for speeding up
-    #synced_activity.extend(new_ids)
+    synced_activity.extend(new_ids)
     save_synced_activity_list(synced_activity)
 
     # Step 2:
