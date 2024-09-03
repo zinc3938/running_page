@@ -97,14 +97,14 @@ async def upload_to_activities(
     for i in sorted(strava_activities, key=lambda i: int(i.id)):
         try:
             data = strava_web_client.get_activity_data(i.id, fmt=format)
-            print("get_activity_data:",data)
             newfilename = f"{i.id}.fit"
             
             newdata = ExportFile(newfilename, data.content)
+            print("get_activity_data:",newdata)
             with open(newdata.filename, "wb") as f:
-                for chunk in data.content:
+                for chunk in newdata.content:
                     f.write(chunk)
-                    f.close()
+                f.close()
             files_list.append(newdata)
         except Exception as ex:
             print("get strava data error: ", ex)
