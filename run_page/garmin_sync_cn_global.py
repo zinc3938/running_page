@@ -97,7 +97,7 @@ if __name__ == "__main__":
 
     # Save synced activity list for speeding up
     #synced_activity.extend(new_ids)
-    #save_synced_activity_list(synced_activity)
+    save_synced_activity_list(synced_activity)
 
     # Step 2:
     # Generate track from fit/gpx file
