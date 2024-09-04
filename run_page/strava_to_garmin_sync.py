@@ -13,6 +13,7 @@ from collections import namedtuple
 
 ExportFile = namedtuple("ExportFile", ("filename", "content"))
 
+
 def generate_strava_run_points(start_time, strava_streams):
     """
     strava return same len data list
@@ -98,9 +99,9 @@ async def upload_to_activities(
         try:
             data = strava_web_client.get_activity_data(i.id, fmt=format)
             newfilename = f"{i.id}.fit"
-            
+
             newdata = ExportFile(newfilename, data.content)
-            print("get_activity_data:",newdata)
+            print("get_activity_data:", newdata)
             with open(newdata.filename, "wb") as f:
                 for chunk in newdata.content:
                     f.write(chunk)
@@ -149,9 +150,9 @@ if __name__ == "__main__":
         options.strava_client_secret,
         options.strava_refresh_token,
     )
-    print("access_token",strava_client.access_token)
-    print("email",options.strava_email)
-    print("password",options.strava_password)
+    print("access_token", strava_client.access_token)
+    print("email", options.strava_email)
+    print("password", options.strava_password)
     strava_web_client = WebClient(
         access_token=strava_client.access_token,
         jwt=options.strava_password,
